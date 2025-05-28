@@ -50,7 +50,7 @@ while True:
                         task_list[str(task_id)]['description'] = user_input[3]
                         task_module.update_tasks(task_list, task_id)
 
-                        print(f'Task no. {task_id} updated succesfully')
+                        print(f'Task no. {task_id} updated successfully')
 
                     except IndexError: # Triggers when "user_input[2]" or "user_input[3]" don't exist
                         print(task_module.dynamic_error_msg(None, 'update'))
@@ -133,13 +133,13 @@ while True:
                         del task_list[str(task_id)]
                         task_module.update_tasks(task_list, task_id, delete=True)
 
-                        print(f'Task no. {task_id} deleted succesfully')
+                        print(f'Task no. {task_id} deleted successfully')
 
                     except IndexError: # Triggers when "user_input[2]" doesn't exist
                         print(task_module.dynamic_error_msg(None, 'delete'))
 
                 case 'exit': # Exits the program (who would've thought)
-                    raise SystemExit('See you next time ;)')
+                    raise SystemExit('\nSee you next time ;)')
 
                 case _: # Triggers when second argument is invalid
                     print(task_module.dynamic_error_msg(user_input[1], None))

@@ -43,8 +43,8 @@ def generate_id(task_list) -> int:
 
 def check_id(task_list, task_id, case) -> bool:
     """
-    Checks if there exists a task, given a task list and ID.
-    Also, displays an error message in case the task doesn't exist.
+    Checks if there exists a task, given a task list and ID
+    Displays an error message in case the task doesn't exist
     """
     if str(task_id) not in task_list.keys():  # Triggers when "task_id" is invalid
         print(dynamic_error_msg(task_id, case))
@@ -91,9 +91,10 @@ def create_task(identification, description) -> dict:
         'last updated': now(),
     }
 
-def load_tasks() -> dict:
+def dir_safety_warning() -> None:
     """
-    Loads tasks.json into a dictionary
+    Inquires the user if they run the program from an alternate directory
+    Exits program if user negates continuing, otherwise, does nothing
     """
     # The directory that runs this application should be the "task-manager" folder, so this shouldn't trigger
     if not set(DEFAULT_DIRECTORY).issubset(CURRENT_DIRECTORY):
@@ -107,6 +108,14 @@ Are you sure you want to continue? [Y/N]: """
         if choice.upper() == 'N':
             raise SystemExit('Consult "README.md" file for more information.')
 
+def load_tasks() -> dict:
+    """
+    Loads tasks.json into a dictionary
+    """
+    dir_safety_warning()
+    if not os.path.isdir('task_storage'): # Creates "tasks_storage" folder if it doesn't exist
+        os.mkdir('task_storage')
+        print(f'Unable to find "task_storage" folder. Created new one at "{os.getcwd()}"')
     try: # Creates "tasks.json" file if it doesn't exist
         with open('task_storage/tasks.json', 'x') as tasks_file:
             tasks_file.write('{}')
@@ -117,9 +126,7 @@ Are you sure you want to continue? [Y/N]: """
             with open('task_storage/tasks.json', 'r') as tasks_file:
                 return json.load(tasks_file)
         except json.JSONDecodeError: # Triggers when "tasks.json" file is written irregularly
-            raise SystemExit('An error ocurred while decoding the "tasks.json" file. Please consult "README.md" file for more information.')
-    except FileNotFoundError: # Triggers when "task_storage" is not found
-        raise SystemExit('Unable to find "task_storage" folder. Please consult "README.md" file for more information.')
+            raise SystemExit('An error occurred while decoding the "tasks.json" file. Please consult "README.md" file for more information.')
 
 def update_tasks(task_list, task_id, delete=False) -> None:
     """
@@ -130,7 +137,7 @@ def update_tasks(task_list, task_id, delete=False) -> None:
             task_list[str(task_id)]['last updated'] = now()
         json.dump(task_list, tasks_file)
 
-# ATTENTION!! BORING ASS DOCUMENTATION AHEAD
+# WARNING!! BORING ASS DOCUMENTATION AHEAD
 
 TM_LINE_LENGTH = 105
 
@@ -167,7 +174,7 @@ TM_HELP_DOCS = {
 """
 HELP ON "HELP" COMMAND
 
-Shows informations about commands
+Shows information about commands
 
 tm help -> Shows generic help page
 
@@ -243,7 +250,7 @@ in-progress: task list will only show tasks with "in-progress" status
 
 done: task list will only show tasks with "done" status
 
-!!!Out of "todo", "in-progress", "done", only one can be choosen, otherwise an error will occur!!!
+!!!Out of "todo", "in-progress", "done", only one can be chosen, otherwise an error will occur!!!
 
 --extend: task list will show extra information about tasks, which are:
 
