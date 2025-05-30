@@ -9,7 +9,7 @@ from functools import partial
 # Loads tasks.json into variable
 task_list = task_module.load_tasks()
 
-print('Welcome to Task Manager')
+print('\nWelcome to Task Manager\n')
 
 # User may exit program by typing "tm exit"
 while True:
@@ -35,7 +35,7 @@ while True:
                         task_list[str(task_id)] = new_task
                         task_module.update_tasks(task_list, task_id)
 
-                        print(f'Task no. {task_id} added successfully')
+                        print(f'\nTask no. {task_id} added successfully\n')
 
                     except IndexError: # Triggers when "user_input[2]" doesn't exist
                         print(task_module.dynamic_error_msg(None, 'add'))
@@ -50,7 +50,7 @@ while True:
                         task_list[str(task_id)]['description'] = user_input[3]
                         task_module.update_tasks(task_list, task_id)
 
-                        print(f'Task no. {task_id} updated successfully')
+                        print(f'\nTask no. {task_id} updated successfully\n')
 
                     except IndexError: # Triggers when "user_input[2]" or "user_input[3]" don't exist
                         print(task_module.dynamic_error_msg(None, 'update'))
@@ -65,7 +65,7 @@ while True:
                         task_list[str(task_id)]["status"] = "in progress"
                         task_module.update_tasks(task_list, task_id)
 
-                        print(f'Task no. {task_id} marked as "in progress"')
+                        print(f'\nTask no. {task_id} marked as "in progress"\n')
 
                     except IndexError: # Triggers when "user_input[2]" doesn't exist
                         print(task_module.dynamic_error_msg(None, 'mark-in-progress'))
@@ -80,7 +80,7 @@ while True:
                         task_list[str(task_id)]["status"] = "done"
                         task_module.update_tasks(task_list, task_id)
 
-                        print(f'Task no. {task_id} marked as "done"')
+                        print(f'\nTask no. {task_id} marked as "done"\n')
 
                     except IndexError: # Triggers when "user_input[2]" doesn't exist
                         print(task_module.dynamic_error_msg(None, 'mark-done'))
@@ -133,7 +133,7 @@ while True:
                         del task_list[str(task_id)]
                         task_module.update_tasks(task_list, task_id, delete=True)
 
-                        print(f'Task no. {task_id} deleted successfully')
+                        print(f'\nTask no. {task_id} deleted successfully\n')
 
                     except IndexError: # Triggers when "user_input[2]" doesn't exist
                         print(task_module.dynamic_error_msg(None, 'delete'))
